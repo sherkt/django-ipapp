@@ -1,0 +1,257 @@
+body {
+  font-family: "Avenir Next","Helvetica Neue",Helvetica,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: #047eff;
+}
+a.unlink {
+  color: inherit;
+}
+.bg-grey {
+  background-color: #f6f7fa;
+}
+.bg-slate {
+  background-color: rgba(15, 19, 25, 0.95);
+  color: #fff;
+}
+.linkify {
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+.header {
+  width: 100%;
+  color: #fff;
+}
+.sub-lead {
+  font-size: 18px;
+  max-width: 800px;
+}
+.header .nav {
+  padding: 30px 20px;
+}
+#main-content .container {
+  padding: 60px 15px;
+}
+.footer .container {
+  padding: 60px 15px;
+}
+
+.header .nav, .container {
+  max-width: 1000px;
+}
+.header .nav {
+  margin: -5px auto;
+}
+.header .container {
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+.header .nav-items, .header .nav-items a {
+  color: #fff;
+  text-decoration: none;
+}
+.header .nav-items {
+  display: inline-block;
+  width: calc(100% - 208px);
+  text-align: left;
+  font-size: 16px !important;
+}
+.header .nav-items ul {
+  padding-left: 0;
+}
+@media only screen and (min-width: 751px) {
+  .header .nav-items ul li:first-child {
+    padding-left: 0;
+  }
+}
+.header .nav-items li:hover, .header .nav-buttons a:hover {
+  opacity: 0.6;
+}
+.header .nav-items ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 15px 10px;
+}
+.header .nav-buttons {
+  width: 190px;
+  display: inline-block;
+  padding: 15px 10px;
+  text-align: right;
+}
+.header .nav-buttons a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px !important;
+}
+.btn {
+  border-radius: 8px;
+  padding: 5px 15px;
+}
+.btn:hover {
+  cursor: pointer;
+}
+.btn-lg {
+  padding: 10px 30px;
+}
+.btn.btn-white {
+  background: #fff;
+}
+.btn.btn-blue {
+  background-color: rgba(87,163,255,0.8);
+  color: #fff;
+}
+.btn.btn-blue:hover {
+  background-color: rgba(87,163,255,0.9);
+}
+.btn-grey {
+  background-color: rgba(60,60,60,0.1);
+}
+.btn-grey:hover {
+  background-color: rgba(60,60,60,0.15);
+}
+.btn-default {
+  background-color: rgba(3,76,154,0.84);
+  color: #fff;
+}
+.btn-default:hover {
+  background-color: rgba(3,76,154,0.94);
+  color: #fff;
+}
+
+.header .btn-default {
+  background-color: rgba(87,163,255,0.42);
+}
+.header .btn-default:hover {
+  background-color: rgba(87,163,255,0.52);
+}
+.header .nav-buttons .btn {
+  color: #047eff;
+  margin-left: 10px;
+  opacity: 1.0 !important;
+}
+
+.header .container img {
+  width: 400px;
+  float: right;
+  margin-right: 0px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+.header .container p {
+  font-size: 18px;
+}
+
+.sub-header {
+  width: 100%;
+  color: #fff;
+  padding: 20px 20px;
+  font-size: 15px;
+}
+.sub-header .ip-form {
+  text-align: right;
+  width: calc(100% - 230px);
+}
+.ip-form input, .ip-form button {
+  vertical-align: middle;
+  outline: none;
+  cursor: pointer;
+}
+.ip-form input {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: none;
+  padding: 10px 20px;
+  width: 200px;
+  max-width: calc(100% - 110px);
+  background-color: rgba(9, 86, 123, 0.9);
+  color: rgba(255,255,255,0.9);
+}
+.ip-form input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+.ip-form button {
+  height: 44px;
+  margin-left:-5px;
+  border-radius: 0;
+  color: rgba(41,41,41,1);
+  border-color: rgba(9, 86, 123, 0.9);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ip-form .form-msg {
+  margin: 10px 0 -10px;
+}
+
+.nav.nav-pills li {
+  display: block;
+  width: 100%;
+  background: #f1f1f1;
+  border-bottom: 1px solid #cecece;
+  padding: 6px 2px;
+}
+.nav.nav-pills li a {
+  color: #2b2b2b;
+  text-decoration: none;
+}
+.nav.nav-pills li:hover {
+  background: #d0d0d0;
+}
+
+
+/* CSS for small screens */
+@media only screen and (max-width: 750px) {
+  .header > .nav {
+    padding: 5px 5px 15px;
+  }
+  .header .nav-items {
+    width: 100%;
+  }
+  .header .nav-items ul {
+    margin: 10px 0 0 0;
+    padding: 0;
+    text-align: center;
+  }
+  .header .nav-items ul li {
+    display: inline-block;
+    width: auto;
+    padding: 8px 3px;
+    text-align: center;
+  }
+  .header .nav-buttons {
+    width: 100%;
+    display: block;
+    float: left;
+    text-align: center;
+  }
+  .header .nav-buttons a {
+    display: inline-block;
+    width: 500px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 10px 15px !important;
+    margin-left: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  .sub-header .ip-form {
+    width: 100%;
+    float: none !important;
+    text-align: left !important;
+  }
+  .sub-header .ip-form input {
+    width: 650px;
+  }
+  .header .container > img {
+    max-width: 290px;
+    margin-top: -50px;
+  }
+  .header .container .btn-white, .header .container .btn-blue {
+    margin: 10px 10px 15px 10px !important;
+    display: block;
+    float: none;
+  }
+}
