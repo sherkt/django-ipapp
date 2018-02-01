@@ -143,16 +143,6 @@ a.unlink {
   font-size: 18px;
 }
 
-.sub-header {
-  width: 100%;
-  color: #fff;
-  padding: 20px 20px;
-  font-size: 15px;
-}
-.sub-header .ip-form {
-  text-align: right;
-  width: calc(100% - 230px);
-}
 .ip-form input, .ip-form button {
   vertical-align: middle;
   outline: none;
@@ -163,7 +153,7 @@ a.unlink {
   border-bottom-left-radius: 5px;
   border: none;
   padding: 10px 20px;
-  width: 200px;
+  width: 230px;
   max-width: calc(100% - 110px);
   background-color: rgba(9, 86, 123, 0.9);
   color: rgba(255,255,255,0.9);
@@ -181,8 +171,12 @@ a.unlink {
   border-bottom-right-radius: 5px;
 }
 
-.ip-form .form-msg {
-  margin: 10px 0 -10px;
+.ip-form ul.errorlist {
+  margin: 10px 0;
+  padding: 0;
+}
+.ip-form ul.errorlist li {
+  list-style: none;
 }
 
 .nav.nav-pills li {
@@ -237,18 +231,6 @@ a.unlink {
 }
 
 @media only screen and (max-width: 670px) {
-  .sub-header .ip-form {
-    width: 100%;
-    float: none !important;
-    text-align: left !important;
-  }
-  .sub-header .ip-form input {
-    width: 650px;
-  }
-  .header .container > img {
-    max-width: 290px;
-    margin-top: -50px;
-  }
   .header .container .btn-white, .header .container .btn-blue {
     margin: 10px 10px 15px 10px !important;
     display: block;
