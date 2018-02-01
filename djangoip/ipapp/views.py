@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 from .forms import IpForm
-from .utils import get_info
+from .utils import get_info, save_results, get_recent
 
-# Create your views here.
 def home(request):
     if request.method == 'POST':
         form = IpForm(request.POST)
@@ -28,18 +27,9 @@ def home(request):
     else:
         form = IpForm()
 
-    if request.session.get('queries'):
-        print("GOT HERE 2")
-        queries = []
-    else:
-        queries = None
-    queries = {
-        '70.50.132.61':{'city':'Kanata','province':'Ontario'},
-        '70.51.86.38':{'city':'Kanata','province':'Ontario'},
-        '174.95.4.182':{'city':'Kanata','province':'Ontario'},
-        '174.95.5.131':{'city':'Kanata','province':'Ontario'},
-        '174.92.70.244':{'city':'Kanata','province':'Ontario'},
-        '65.95.139.12':{'city':'Kanata','province':'Ontario'},
-        '64.231.105.123':{'city':'Kanata','province':'Ontario'},
-    }
+    # IPs for testing:
+    # 70.50.132.61, 70.51.86.38, 174.95.4.182, 174.95.5.131
+    # 174.92.70.244, 65.95.139.12, 64.231.105.123
+
+    queries = get_recent(request)
     return render(request, 'ipapp/home.html', {'form': form, 'queries': queries})
