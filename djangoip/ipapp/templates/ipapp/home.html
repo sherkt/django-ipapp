@@ -23,8 +23,8 @@
     <div class="col-6">
       <h3>Recent Queries</h3>
       <div class="list-group" style="max-width: 300px;">
-        {% for key, value in queries.items %}
-          <a href="/?ip={{ key }}" class="list-group-item list-group-item-action">{{ key }}</a>
+        {% for value in queries|dictsortreversed:'date' %}
+          <a href="/?ip={{ value.ip_address }}" class="list-group-item list-group-item-action">{{ value.ip_address }}</a>
         {% endfor %}
       </div>
     </div>
