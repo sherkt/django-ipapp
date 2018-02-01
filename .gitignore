@@ -1,0 +1,9 @@
+# Django stuff:
+*.log
+*.sqlite3
+settings.py
+manage.py
+
+
+# Mac Files
+.DS_Store
