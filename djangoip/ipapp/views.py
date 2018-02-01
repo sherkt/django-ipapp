@@ -1,6 +1,5 @@
 from django.core.validators import validate_ipv46_address
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
@@ -8,7 +7,7 @@ from .utils import get_info, save_results, get_recent
 
 def home(request):
     data = None
-    ip_address = request.META.get('REMOTE_ADDR')
+    ip_address = ''
     if request.method == 'POST':
         form = IpForm(request.POST)
 
@@ -19,6 +18,8 @@ def home(request):
 
             data = geoip
 
+            return redirect(reverse('home') + "?ip=" + ip_address)
+
             # page, error = get_page(cd["url"])
             # if error:
             #     return render(request, 'ipapp/home.html', dict(
@@ -26,10 +27,8 @@ def home(request):
             #     ))
             # else:
             #     result = save_results(request, cd, page)
-
-            # return redirect('results')
-        # else:
-            # return HttpResponse("In valid")
+        else:
+            ip_address = request.POST.get('ip')
     else:
         form = IpForm()
         if request.GET.get('ip'):
@@ -40,7 +39,9 @@ def home(request):
                 if geoip:
                     data = geoip
             except:
-                ip_address = ''
+                return redirect('home')
+        else:
+            ip_address = request.META.get('REMOTE_ADDR')
 
 
     # IPs for testing:
