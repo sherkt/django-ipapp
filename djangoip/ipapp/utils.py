@@ -5,6 +5,16 @@ from .models import GeoIP
 def get_info():
     return "Success"
 
+def get_recent(request):
+    queries = []
+    if request.session.get('queries'):
+        for key, value in request.session.get('queries').items():
+            geoip = GeoIP.objects.get(pk=value)
+            if geoip:
+                queries.append({'ip_address': geoip.ip_address, 'pk': geoip.pk, 'date': geoip.last_activity})
+
+    return queries
+
 def save_results(request, ip):
     geoip = GeoIP.objects.filter(
         ip_address__iexact=ip
@@ -20,6 +30,10 @@ def save_results(request, ip):
     geoip.country_code = 'CA'
     geoip.save()
 
-    request.session["queries"][ip] = geoip.pk
+    if request.session.get('queries'):
+        request.session["queries"][ip] = geoip.pk
+        request.session.modified = True
+    else:
+        request.session["queries"] = {ip: geoip.pk}
 
     return geoip
