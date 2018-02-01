@@ -13,7 +13,7 @@
       <form class="form" action="" method="post">{% csrf_token %}
         <input type="text" name="ip" placeholder="Enter a single IP address" value="{% if request.POST.ip %}{{ request.POST.ip }}{% elif request.GET.ip %}{{ request.GET.ip }}{% else %}{{ request.META.REMOTE_ADDR }}{% endif %}">
         <button class="btn btn-square btn-white">Get Info</button>
-        <span>{{ form.ip.errors }}</span>
+        <span class="text-danger">{{ form.ip.errors }}</span>
       </form>
     </div>
   </div>
@@ -22,7 +22,7 @@
   <div class="row mt-4">
     <div class="col-6">
       <h3>Recent Queries</h3>
-      <div class="list-group" style="max-width: 300px;">
+      <div class="list-group" style="max-width: 322px;">
         {% for value in queries|dictsortreversed:'date' %}
           <a href="/?ip={{ value.ip_address }}" class="list-group-item list-group-item-action">{{ value.ip_address }}</a>
         {% endfor %}
