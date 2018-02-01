@@ -1,0 +1,33 @@
+{% extends "ipapp/base.html" %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-6">
+    <div class="ip-form">
+      {% if form.errors %}
+      <div class="alert alert-danger">
+        <span>Please correct the error{{ form.errors|pluralize }} below:</span>
+      </div>
+      {% endif %}
+      <form class="form" action="" method="post">{% csrf_token %}
+        <input type="text" name="ip" placeholder="Enter a single IP address" value="{% if request.POST.ip %}{{ request.POST.ip }}{% elif request.GET.ip %}{{ request.GET.ip }}{% else %}{{ request.META.REMOTE_ADDR }}{% endif %}">
+        <button class="btn btn-square btn-white">Get Info</button>
+        <span>{{ form.ip.errors }}</span>
+      </form>
+    </div>
+  </div>
+</div>
+{% if queries %}
+  <div class="row mt-4">
+    <div class="col-6">
+      <h3>Recent Queries</h3>
+      <div class="list-group" style="max-width: 300px;">
+        {% for key, value in queries.items %}
+          <a href="/?ip={{ key }}" class="list-group-item list-group-item-action">{{ key }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
