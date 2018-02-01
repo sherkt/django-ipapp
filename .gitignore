@@ -1,4 +1,7 @@
-# Django stuff:
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Django stuff
 *.log
 *.sqlite3
 settings.py
