@@ -25,11 +25,56 @@
     <div class="container">
       <h1>Showing results for {{ data.ip_address }}</h1>
       <div class="row">
+        <div class="col-4">
+          {% if data.location %}
+            <p class="mb-0">City: {{ data.city }}</p>
+            <p class="mb-0">Province: {{ data.province }}</p>
+            <p class="mb-0">Country: {{ data.country_code }}</p>
+            <p class="mb-0">Longitude: {{ data.location.longitude }}</p>
+            <p class="mb-0">Latitude: {{ data.location.longitude }}</p>
+            <p class="mb-0">Last updated: {{ data.last_activity }}</p>
+          {% endif %}
+          {% if data.last_updated %}
+            <p class="mb-0">Last updated: {{ data.last_updated }}</p>
+          {% endif %}
+        </div>
+        <div class="col-4">
+          {% if data.weather %}
+            <p class="mb-0">Min Temp: {{ data.weather.main.temp_min }} &deg; {{ data.weather.symbol }}</p>
+            <p class="mb-0">Max Temp: {{ data.weather.main.temp_max }} &deg; {{ data.weather.symbol }}</p>
+            <p class="mb-0">Humidity: {{ data.weather.main.humidity }}</p>
+            <p class="mb-0">Current Temp: {{ data.weather.main.temp }} &deg; {{ data.weather.symbol }}</p>
+            <p class="mb-0">Sunset: {{ data.weather.sys.sunset }}</p>
+            <p class="mb-0">Weather: {{ data.weather.weather.0.description }}</p>
+            <p class="mb-0">Main: {{ data.weather.weather.0.main }}</p>
+            <p class="mb-0">Icon: {{ data.weather.weather.0.icon }}</p>
+            <img src="http://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
+            <br>
+            {{ data.weather }}
+          {% endif %}
+        </div>
+        <div class="col-4">
+          {% if data.news.articles %}
+            {% for article in data.news.articles.results %}
+              <div class="card mb-4">
+                <div class="card-body">
+                  <p>{{ article.dateTime }}</p>
+                  <p>{{ article.title }}</p>
+                  <p>{{ article.source.url }}</p>
+                  <p>{{ article.url }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="row">
         <div class="col-12">
-          <p>City: {{ data.city }}</p>
-          <p>Province: {{ data.province }}</p>
-          <p>Country: {{ data.country_code }}</p>
-          <p>Last updated: {{ data.last_activity }}</p>
+          <span class="text-muted small">
+            Location information provided by <a href="http://freegeoip.net" target="_blank">freegeoip.net</a>.<br>
+            Weather information provided by <a href='http://openweathermap.org' target="_blank">openweathermap.org</a>.<br>
+            News provided by <a href="http://eventregistry.org/" target="_blank">EventRegistry.org</a>.
+          </span>
         </div>
       </div>
       <div class="row">

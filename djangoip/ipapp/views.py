@@ -4,31 +4,22 @@ from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
-from .utils import save_results, get_recent
+from .utils import get_or_set_cache, get_recent
 
 
 def home(request):
     data = None
     ip_address = ''
+
     if request.method == 'POST':
         form = IpForm(request.POST)
 
         if form.is_valid():
             cd = form.cleaned_data
             ip_address = cd.get('ip')
-            geoip = save_results(request, ip_address)
 
-            data = geoip
-
+            data = get_or_set_cache(request, ip_address)
             return redirect(reverse('home') + "?ip=" + ip_address)
-
-            # page, error = get_page(cd["url"])
-            # if error:
-            #     return render(request, 'ipapp/home.html', dict(
-            #         form=form, error=error
-            #     ))
-            # else:
-            #     result = save_results(request, cd, page)
         else:
             ip_address = request.POST.get('ip')
     else:
@@ -37,11 +28,11 @@ def home(request):
             ip_address = request.GET.get('ip')
             try:
                 validate_ipv46_address(ip_address)
-                geoip = GeoIP.objects.filter(ip_address=ip_address).first()
-                if geoip:
-                    data = geoip
             except ValidationError:
                 return redirect('home')
+            geoip = GeoIP.objects.filter(ip_address=ip_address).first()
+            if geoip:
+                data = get_or_set_cache(request, ip_address)
         else:
             ip_address = request.META.get('REMOTE_ADDR')
 
