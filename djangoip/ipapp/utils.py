@@ -2,8 +2,11 @@ import requests
 
 from .models import GeoIP
 
+
 def get_info():
-    return "Success"
+    data = requests.get('http')
+    return data
+
 
 def get_recent(request):
     queries = []
@@ -11,9 +14,14 @@ def get_recent(request):
         for key, value in request.session.get('queries').items():
             geoip = GeoIP.objects.get(pk=value)
             if geoip:
-                queries.append({'ip_address': geoip.ip_address, 'pk': geoip.pk, 'date': geoip.last_activity})
+                queries.append({
+                    'ip_address': geoip.ip_address,
+                    'pk': geoip.pk,
+                    'date': geoip.last_activity
+                })
 
     return queries
+
 
 def save_results(request, ip):
     geoip = GeoIP.objects.filter(

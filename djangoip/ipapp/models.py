@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 
+
 class GeoIP(models.Model):
     ip_address = models.CharField(max_length=200, unique=True)
     city = models.CharField(max_length=200, blank=True)
