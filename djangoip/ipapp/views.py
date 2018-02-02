@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
-from .utils import get_info, save_results, get_recent
+from .utils import save_results, get_recent
 
 
 def home(request):

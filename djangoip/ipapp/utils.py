@@ -3,16 +3,19 @@ import requests
 from .models import GeoIP
 
 
-def get_info():
-    data = requests.get('http')
-    return data
+def get_info(ip):
+    data = requests.get('http://freegeoip.net/json/' + ip)
+    if data.status_code == 200:
+        return data.json()
+    else:
+        return None
 
 
 def get_recent(request):
     queries = []
     if request.session.get('queries'):
         for key, value in request.session.get('queries').items():
-            geoip = GeoIP.objects.get(pk=value)
+            geoip = GeoIP.objects.filter(pk=value).first()
             if geoip:
                 queries.append({
                     'ip_address': geoip.ip_address,
@@ -33,10 +36,14 @@ def save_results(request, ip):
             ip_address=ip.lower(),
         )
 
-    geoip.city = 'Ottawa'
-    geoip.province = 'Ontario'
-    geoip.country_code = 'CA'
-    geoip.save()
+    if not geoip.country_code:
+        json = get_info(ip)
+        if json:
+            geoip.city = json.get('city')
+            geoip.province = json.get('region_name')
+            geoip.country_code = json.get('country_code')
+            geoip.zip_code = json.get('zip_code')
+            geoip.save()
 
     if request.session.get('queries'):
         request.session["queries"][ip] = geoip.pk
