@@ -95,15 +95,15 @@ def get_or_set_cache(request, ip_address):
 
 
 def update_session(request, ip_address, location):
-    cache_data = { 'date': now().isoformat(),
-                   'city': location.get('city'),
-                   'country_code': location.get('country_code'), }
+    cache_data = {'date': now().isoformat(),
+                  'city': location.get('city'),
+                  'country_code': location.get('country_code'), }
 
     if request.session.get('queries'):
         request.session["queries"][ip_address] = cache_data
         request.session.modified = True
     else:
-        request.session["queries"] = {ip_address: cache_data }
+        request.session["queries"] = {ip_address: cache_data}
 
     return cache_data
 
