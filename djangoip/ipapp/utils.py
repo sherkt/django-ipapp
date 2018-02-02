@@ -1,5 +1,6 @@
 import requests
 
+from django.conf import settings
 from django.core.cache import cache
 from django.utils.timezone import now
 
@@ -25,7 +26,7 @@ def get_location(ip):
 
 
 def get_weather(city, country_code):
-    key = 'ae91f68a2c220ecb2ad3db7ff7a9451b'
+    key = getattr(settings, 'OPENWEATHER_KEY', '')
     if country_code == 'US':
         units = 'imperial'
         symbol = 'F'
@@ -45,7 +46,7 @@ def get_weather(city, country_code):
 
 def get_newsapi(country_code):
     """Calls newsapi.org API which isn't as advanced as EventRegistry.org"""
-    key = '6973fdbb20a946bfb91552a9a66c9c58'
+    key = getattr(settings, 'NEWSAPI_KEY', '')
     url = ('https://newsapi.org/v2/top-headlines?'
            'country=' + country_code + '&'
            'pageSize=5&'
@@ -55,7 +56,7 @@ def get_newsapi(country_code):
 
 def get_news(country, city):
     """Calls EventRegistry.org API"""
-    key = '1f260057-0ed6-472b-9cdb-38f340e30a13'
+    key = getattr(settings, 'EVENTREGISTRY_KEY', '')
     er = EventRegistry(apiKey=key)
     q = QueryArticles(
         locationUri=er.getLocationUri(city),

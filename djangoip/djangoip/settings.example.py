@@ -7,7 +7,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = ''
+SECRET_KEY = 'YOUR_SECRET_KEY'
+
+OPENWEATHER_KEY = 'YOUR_KEY'
+NEWSAPI_KEY = 'YOUR_KEY'
+EVENTREGISTRY_KEY = 'YOUR_KEY'
 
 DEBUG = False
 
