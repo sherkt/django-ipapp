@@ -5,7 +5,7 @@ server {
     charset utf-8;
 
     location /static {
-        alias /data/web/djangoip/ipapp/static;
+        alias /data/web/djangoip/static;
     }
 
     location / {
