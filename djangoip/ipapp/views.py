@@ -1,9 +1,11 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv46_address
 from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
 from .utils import get_info, save_results, get_recent
+
 
 def home(request):
     data = None
@@ -38,11 +40,10 @@ def home(request):
                 geoip = GeoIP.objects.filter(ip_address=ip_address).first()
                 if geoip:
                     data = geoip
-            except:
+            except ValidationError:
                 return redirect('home')
         else:
             ip_address = request.META.get('REMOTE_ADDR')
-
 
     # IPs for testing:
     # 70.50.132.61, 70.51.86.38, 174.95.4.182, 174.95.5.131
