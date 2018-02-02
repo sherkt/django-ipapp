@@ -1,6 +1,6 @@
 web:
   restart: always
-  build: ./web/
+  build: ./djangoip/
   expose:
     - "8000"
   links:
@@ -8,7 +8,7 @@ web:
     - redis:redis
   env_file: env
   volumes:
-    - ./web:/data/web
+    - ./djangoip:/data/web
   command: /usr/bin/gunicorn ipapp.wsgi:application -w 2 -b :8000
 
 
