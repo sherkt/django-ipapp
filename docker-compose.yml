@@ -9,7 +9,7 @@ web:
   env_file: env
   volumes:
     - ./djangoip:/data/web
-  command: /usr/bin/gunicorn ipapp.wsgi:application -w 2 -b :8000
+  command: /usr/bin/gunicorn djangoip.wsgi:application -w 2 -b :8000
 
 
 nginx:
