@@ -35,7 +35,7 @@ def home(request):
                 data = get_or_set_cache(request, ip_address)
         else:
             if request.META.get('HTTP_X_FORWARDED_FOR'):
-                ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+                ip_address = request.META.get('HTTP_X_FORWARDED_FOR').split(",")[0].strip()
             else:
                 ip_address = request.META.get('REMOTE_ADDR')
 
