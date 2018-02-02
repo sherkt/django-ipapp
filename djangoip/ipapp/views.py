@@ -34,7 +34,10 @@ def home(request):
             if geoip:
                 data = get_or_set_cache(request, ip_address)
         else:
-            ip_address = request.META.get('REMOTE_ADDR')
+            if request.META.get('HTTP_X_FORWARDED_FOR'):
+                ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+            else:
+                ip_address = request.META.get('REMOTE_ADDR')
 
     # IPs for testing:
     # 70.50.132.61, 70.51.86.38, 174.95.4.182, 174.95.5.131
