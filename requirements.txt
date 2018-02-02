@@ -1,3 +1,4 @@
 django==2.0.2
 requests==2.18.4
 django-redis==4.8.0
+eventregistry==6.7.0
