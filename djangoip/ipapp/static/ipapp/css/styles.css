@@ -9,82 +9,21 @@ a {
 a.unlink {
   color: inherit;
 }
-.bg-grey {
-  background-color: #f6f7fa;
-}
-.bg-slate {
-  background-color: rgba(15, 19, 25, 0.95);
-  color: #fff;
-}
 .linkify {
   text-decoration: underline !important;
   cursor: pointer;
 }
-.header {
-  width: 100%;
+
+/* backgrounds */
+.bg-grey {
+  background-color: #f6f7fa;
+}
+.bg-slate {
+  background-color: rgba(15, 19, 25, 1);
   color: #fff;
-}
-.sub-lead {
-  font-size: 18px;
-  max-width: 800px;
-}
-.header .nav {
-  padding: 30px 20px;
-}
-#main-content .container {
-  padding: 60px 15px;
-}
-.footer .container {
-  padding: 60px 15px;
 }
 
-.header .nav, .container {
-  max-width: 1000px;
-}
-.header .nav {
-  margin: -5px auto;
-}
-.header .container {
-  padding-top: 30px;
-  padding-bottom: 50px;
-}
-.header .nav-items, .header .nav-items a {
-  color: #fff;
-  text-decoration: none;
-}
-.header .nav-items {
-  display: inline-block;
-  width: calc(100% - 208px);
-  text-align: left;
-  font-size: 16px !important;
-}
-.header .nav-items ul {
-  padding-left: 0;
-}
-@media only screen and (min-width: 751px) {
-  .header .nav-items ul li:first-child {
-    padding-left: 0;
-  }
-}
-.header .nav-items li:hover, .header .nav-buttons a:hover {
-  opacity: 0.6;
-}
-.header .nav-items ul li {
-  list-style: none;
-  display: inline-block;
-  padding: 15px 10px;
-}
-.header .nav-buttons {
-  width: 190px;
-  display: inline-block;
-  padding: 15px 10px;
-  text-align: right;
-}
-.header .nav-buttons a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px !important;
-}
+/* buttons */
 .btn {
   border-radius: 8px;
   padding: 5px 15px;
@@ -120,29 +59,23 @@ a.unlink {
   color: #fff;
 }
 
-.header .btn-default {
-  background-color: rgba(87,163,255,0.42);
+/* misc for headers and containers */
+.header {
+  width: 100%;
+  color: #fff;
+  margin-bottom: -2px;
 }
-.header .btn-default:hover {
-  background-color: rgba(87,163,255,0.52);
+.container.medium-padding {
+  padding: 30px 15px;
 }
-.header .nav-buttons .btn {
-  color: #047eff;
-  margin-left: 10px;
-  opacity: 1.0 !important;
+.container.big-padding {
+  padding: 60px 15px;
 }
-
-.header .container img {
-  width: 400px;
-  float: right;
-  margin-right: 0px;
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-.header .container p {
-  font-size: 18px;
+.border-bottom-dark {
+  border-bottom: 5px solid rgba(0,0,0,0.6);
 }
 
+/* ip form */
 .ip-form input, .ip-form button {
   vertical-align: middle;
   outline: none;
@@ -153,7 +86,7 @@ a.unlink {
   border-bottom-left-radius: 5px;
   border: none;
   padding: 10px 20px;
-  width: 230px;
+  width: 280px;
   max-width: calc(100% - 110px);
   background-color: rgba(9, 86, 123, 0.9);
   color: rgba(255,255,255,0.9);
@@ -179,61 +112,7 @@ a.unlink {
   list-style: none;
 }
 
-.nav.nav-pills li {
-  display: block;
-  width: 100%;
-  background: #f1f1f1;
-  border-bottom: 1px solid #cecece;
-  padding: 6px 2px;
-}
-.nav.nav-pills li a {
-  color: #2b2b2b;
-  text-decoration: none;
-}
-.nav.nav-pills li:hover {
-  background: #d0d0d0;
-}
-
-
-/* CSS for small screens */
-@media only screen and (max-width: 750px) {
-  .header > .nav {
-    padding: 5px 5px 15px;
-  }
-  .header .nav-items {
-    width: 100%;
-  }
-  .header .nav-items ul {
-    margin: 10px 0 0 0;
-    padding: 0;
-    text-align: center;
-  }
-  .header .nav-items ul li {
-    display: inline-block;
-    width: auto;
-    padding: 8px 3px;
-    text-align: center;
-  }
-  .header .nav-buttons {
-    width: 100%;
-    display: block;
-    float: left;
-    text-align: center;
-  }
-  .header .nav-buttons a {
-    display: inline-block;
-    width: 500px;
-    max-width: 90%;
-    margin: 0 auto;
-    padding: 10px 15px !important;
-    margin-left: 0 !important;
-  }
-}
-
+/* styles for small screens */
 @media only screen and (max-width: 670px) {
-  .header .container .btn-white, .header .container .btn-blue {
-    margin: 10px 10px 15px 10px !important;
-    display: block;
-    float: none;
-  }
+ /* add if needed */
 }

@@ -5,16 +5,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}IP Assignment{% endblock %}</title>
+    <title>{% block title %}IP FINDER{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'ipapp/css/styles.css' %}">
 
     <link rel="icon" type="image/png" href="{% static 'ipapp/img/favicon-16x16.png' %}" sizes="16x16">
     <link rel="icon" type="image/png" href="{% static 'ipapp/img/favicon-32x32.png' %}" sizes="32x32">
     <link rel="icon" type="image/png" href="{% static 'ipapp/img/favicon-128x128.png' %}" sizes="128x128">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     {% block meta %}
       <meta name="title" content="IP Tool">
@@ -22,17 +25,12 @@
     {% endblock %}
   </head>
   <body>
-    <div class="header bg-slate">
-      <div class="nav">
-        <div class="nav-items">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Results</a></li>
-            <li><a href="/">Recent</a></li>
-          </ul>
-        </div>
-        <div class="pull-right nav-buttons">
-          {# <a class="btn btn-white" href="/contact/">Contact Me</a> #}
+    <div class="header bg-slate text-center">
+      <div class="container medium-padding">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="mb-0 font-weight-bold">IP FINDER</h1>
+          </div>
         </div>
       </div>
     </div>
@@ -40,26 +38,12 @@
       {% block content %}{% endblock %}
     </div>
     <div class="footer bg-slate">
-      <div class="container">
-        <h3 class="text-center mb-5">Site Navigation</h3>
-        <div class="row mb-5">
-          <div class="col-sm-4 text-center">
-            <ul class="list-unstyled">
-              <li><a href="/" class="text-white">Home</a></li>
-            </ul>
-          </div>
-          <div class="col-sm-4 text-center">
-            <ul class="list-unstyled">
-              <li><a href="/" class="text-white">Recent</a></li>
-            </ul>
-          </div>
-          <div class="col-sm-4 text-center">
-            <ul class="list-unstyled">
-              <li><a href="/" class="text-white">Results</a></li>
-            </ul>
-          </div>
-        </div>
-        <p class="mt-4 text-center text-muted">&copy; {% now "Y" %} Acme Inc.</p>
+      <div class="container medium-padding text-center">
+        <p class="mt-4 text-muted">
+          Proudly built with <i class="fab fa-python"></i> <a href="https://www.python.org/" target="_blank">Python</a>
+          and <a href="https://www.djangoproject.com/" target="_blank">Django</a>
+        </p>
+        <p class="text-muted">Copright &copy; {% now "Y" %} IP FINDER</p>
       </div>
     </div>
   </body>
