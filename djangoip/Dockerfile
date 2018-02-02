@@ -18,5 +18,7 @@ RUN apk del -r python3-dev postgresql
 # Prepare
 COPY . /data/web/
 RUN mkdir -p ipapp/static/admin
+RUN python3 makemigrations
+RUN python3 migrate
 #RUN python3 ./ipapp/manage.py makemigration
 #RUN python3 ./ipapp/manage.py migrate
