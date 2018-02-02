@@ -9,3 +9,5 @@ settings.py
 
 # Mac Files
 .DS_Store
+
+env
