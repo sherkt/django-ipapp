@@ -73,16 +73,12 @@ def get_recent(request):
     queries = []
     if request.session.get('queries'):
         for key, value in request.session.get('queries').items():
-            geoip = GeoIP.objects.filter(pk=value).first()
-            if geoip:
-                queries.append({
-                    'ip_address': geoip.ip_address,
-                    'pk': geoip.pk,
-                    'date': geoip.last_activity,
-                    'city': geoip.city,
-                    'country_code': geoip.country_code,
-                })
-
+            queries.append({
+                'ip_address': key,
+                'date': value.get('date'),
+                'city': value.get('city'),
+                'country_code': value.get('country_code'),
+            })
     return queries
 
 
@@ -91,16 +87,31 @@ def get_or_set_cache(request, ip_address):
     if not data:
         data = save_results(request, ip_address)
         data.last_updated = now()
-        data = cache.set(ip_address, data, TIMEOUT)
+        cache.set(ip_address, data, TIMEOUT)
+
+    update_session(request, ip_address, data.location)
 
     return data
+
+
+def update_session(request, ip_address, location):
+    cache_data = { 'date': now().isoformat(),
+                   'city': location.get('city'),
+                   'country_code': location.get('country_code'), }
+
+    if request.session.get('queries'):
+        request.session["queries"][ip_address] = cache_data
+        request.session.modified = True
+    else:
+        request.session["queries"] = {ip_address: cache_data }
+
+    return cache_data
 
 
 def save_results(request, ip):
     geoip = GeoIP.objects.filter(
         ip_address__iexact=ip
     ).first()
-    print("Inside save_results")
 
     location = weather = news = None
 
@@ -121,12 +132,6 @@ def save_results(request, ip):
         weather = get_weather(geoip.city, geoip.country_code)
 
     news = get_news(location.get('country'), geoip.city)
-
-    if request.session.get('queries'):
-        request.session["queries"][ip] = geoip.pk
-        request.session.modified = True
-    else:
-        request.session["queries"] = {ip: geoip.pk}
 
     geoip.location = location
     geoip.weather = weather
