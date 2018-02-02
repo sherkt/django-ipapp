@@ -68,16 +68,12 @@
       </div>
       <div class="row">
         <div class="col-12">
+          <p class="mb-3 text-muted">Shareable link for <a href="{% url 'home' %}?ip={{ data.ip_address }}">{{ data.ip_address }}</a></p>
           <span class="text-muted small">
             Location information provided by <a href="http://freegeoip.net" target="_blank">freegeoip.net</a>.<br>
             Weather information provided by <a href='http://openweathermap.org' target="_blank">openweathermap.org</a>.<br>
             News provided by <a href="http://eventregistry.org/" target="_blank">EventRegistry.org</a>.
           </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <p><a href="{% url 'home' %}?ip={{ data.ip_address }}">Shareable link</a></p>
         </div>
       </div>
     </div>
