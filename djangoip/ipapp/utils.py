@@ -78,7 +78,9 @@ def get_recent(request):
                 queries.append({
                     'ip_address': geoip.ip_address,
                     'pk': geoip.pk,
-                    'date': geoip.last_activity
+                    'date': geoip.last_activity,
+                    'city': geoip.city,
+                    'country_code': geoip.country_code,
                 })
 
     return queries

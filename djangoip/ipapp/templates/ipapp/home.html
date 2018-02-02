@@ -9,7 +9,7 @@
         <div class="ip-form">
           <form class="form" action="" method="post">{% csrf_token %}
             <input type="text" name="ip" placeholder="Enter a single IP address" value="{{ ip_address }}">
-            <button class="btn btn-square btn-white">Get Info</button>
+            <button class="btn btn-square btn-white"><i class="fas fa-search"></i></button>
             <span class="text-danger">{{ form.ip.errors }}</span>
           </form>
         </div>
@@ -83,20 +83,37 @@
     </div>
   </div>
 {% endif %}
+{% if queries or not request.GET.ip %}
 <div class="bg-grey">
   <div class="container big-padding">
     {% if queries %}
-      <div class="row mt-4">
-        <div class="col-6">
+      <div class="row" id="recent-queries">
+        <div class="col-12 col-lg-6 offset-lg-3 text-center">
           <h3>Recent Queries</h3>
-          <div class="list-group" style="max-width: 322px;">
+          <div class="list-group mt-4 text-left">
             {% for value in queries|dictsortreversed:'date' %}
-              <a href="/?ip={{ value.ip_address }}" class="list-group-item list-group-item-action">{{ value.ip_address }} <i class="fa fa-circle float-right"></i></a>
+              <a href="/?ip={{ value.ip_address }}" class="list-group-item list-group-item-action">
+                <span class="font-weight-bold">{{ value.ip_address }}</span>
+                <span class="float-right font-weight-light text-muted">{{ value.city|default:value.country_code }}</span>
+              </a>
             {% endfor %}
           </div>
         </div>
       </div>
+    {% else %}
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="font-weight-light">Try out the tool!</h2>
+        <h5 class="font-weight-light">Enter an IP address and find out the location, weather, news, and more!</h5>
+        <div class="text-center mt-4 fa-5x text-primary" id="tool-icons" >
+          <i class="far fa-compass"></i>
+          <i class="far fa-sun"></i>
+          <i class="far fa-newspaper"></i>
+        </div>
+      </div>
+    </div>
     {% endif %}
   </div>
 </div>
+{% endif %}
 {% endblock %}
