@@ -3,7 +3,10 @@ import pytz
 
 from django.template import Library
 
+register = Library()
 
+
+@register.filter(name="date_string")
 def date_string(value, arg=None):
     utc = pytz.utc
     if isinstance(value, str):
@@ -15,6 +18,7 @@ def date_string(value, arg=None):
     return value
 
 
+@register.filter(name="utc_unix_string")
 def utc_unix_string(value):
     utc = pytz.utc
     try:
@@ -23,8 +27,3 @@ def utc_unix_string(value):
     except ValueError:
         pass
     return value
-
-
-register = Library()
-register.filter('date_string', date_string)
-register.filter('utc_unix_string', utc_unix_string)
