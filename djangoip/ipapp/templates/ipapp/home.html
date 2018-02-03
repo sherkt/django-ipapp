@@ -31,10 +31,10 @@
                   <h3 class="mb-2"><a href="{{ maps_link }}" target="_blank">{{ data.location|location_string }}</a></h3>
                 {% elif data.location.country_name %}
                   <h3 class="mb-2"><a href="{{ maps_link }}" target="_blank">{{ data.location.country_name }}</a></h3>
-                  <p class="mb-0"><label>Province:</label> {{ data.location.region_name }}</p>
+                  <p class="mb-0"><label>Province:</label> {{ data.location.region_name|default:'(unknown)' }}</p>
                 {% else %}
                   <h3 class="mb-2"><label>Country:</label> {{ data.country_code }}</h3>
-                  <p class="mb-0"><label>Province:</label> {{ data.province }}</p>
+                  <p class="mb-0"><label>Province:</label> {{ data.province|default:'(unknown)' }}</p>
                 {% endif %}
                 <p class="mb-0"><label>Latitude:</label> {{ data.location.latitude }}</p>
                 <p class="mb-0"><label>Longitude:</label> {{ data.location.longitude }}</p>
@@ -89,6 +89,8 @@
                 </div>
               {% endfor %}
             {% endtimezone %}
+          {% else %}
+            <p>Not available for this location.</p>
           {% endif %}
         </div>
       </div>
