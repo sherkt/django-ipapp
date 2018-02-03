@@ -40,14 +40,14 @@ def home(request):
             else:
                 ip_address = request.META.get('REMOTE_ADDR')
 
-    # IPs for testing:
-    # 70.50.132.61, 70.51.86.38, 174.95.4.182, 174.95.5.131
-    # 174.92.70.244, 65.95.139.12, 64.231.105.123
-
     queries = get_recent(request)
-    maps_key = maps_api_key()
-    maps_link = maps_url(data.location)
-    weather_link = weather_url(data.location)
+    if data:
+        maps_key = maps_api_key()
+        maps_link = maps_url(data.location)
+        weather_link = weather_url(data.location)
+    else:
+        maps_key = maps_link = weather_link = ''
+
     return render(request, 'ipapp/home.html', {
         'data': data, 'form': form, 'queries': queries,
         'ip_address': ip_address,

@@ -153,7 +153,7 @@ def save_results(request, ip):
     if geoip.country_code and geoip.city:
         weather = get_weather(geoip.city, geoip.country_code)
 
-    news = get_news(location.get('country'), geoip.city)
+    news = get_news(location.get('country'), location.get('city'))
 
     geoip.location = location
     geoip.weather = weather
