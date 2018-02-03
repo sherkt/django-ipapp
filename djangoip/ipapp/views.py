@@ -7,6 +7,13 @@ from .models import GeoIP
 from .utils import get_or_set_cache, get_recent
 
 
+def page_not_found(request):
+    return render(request, 'ipapp/404.html', status=404)
+
+def server_error(request):
+    return render(request, 'ipapp/500.html', status=500)
+
+
 def home(request):
     data = None
     ip_address = ''
