@@ -1,16 +1,18 @@
 from datetime import datetime
+import pytz
 
 from django.template import Library
-from django.template.defaultfilters import date as date_filter
 
 
-def date_string(value, arg=None):
+def date_string(value):
+    utc = pytz.utc
     if isinstance(value, str):
         try:
             value = datetime.strptime(value[:-1], "%Y-%m-%dT%H:%M:%S")
+            value = value.replace(tzinfo=utc)
         except ValueError:
             pass
-    return date_filter(value, arg)
+    return value
 
 
 register = Library()
