@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
-from .utils import get_or_set_cache, get_recent
+from .utils import get_or_set_cache, get_recent, maps_api_key, maps_url, weather_url
 
 
 def home(request):
@@ -44,7 +44,13 @@ def home(request):
     # 174.92.70.244, 65.95.139.12, 64.231.105.123
 
     queries = get_recent(request)
+    maps_key = maps_api_key()
+    maps_link = maps_url(data.location)
+    weather_link = weather_url(data.location)
     return render(request, 'ipapp/home.html', {
         'data': data, 'form': form, 'queries': queries,
         'ip_address': ip_address,
+        'maps_api_key': maps_key,
+        'maps_link': maps_link,
+        'weather_link': weather_link,
     })

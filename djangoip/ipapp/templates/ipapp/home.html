@@ -20,51 +20,62 @@
 
 {% if data %}
   <div class="bg-white">
-    <div class="container big-padding">
-      <h2 class="text-center mb-3">Local weather and news</h2>
-      <h2 class="text-center mb-3"><span class="text-secondary">{{ data.ip_address }}</span></h2>
+    <div class="container big-padding" id="location-info">
+      <h2 class="text-center mb-3">Local information for {{ data.ip_address }}</h2>
       <div class="row">
         <div class="col-6">
           <div class="row">
             <div class="col-12">
               {% if data.location %}
-                {{ data.location }}
                 {% if data.location.city and data.location.country_name %}
-                  <h3 class="mb-0">{{ data.location|location_string }}</h3>
+                  <h3 class="mb-2"><a href="{{ maps_link }}" target="_blank">{{ data.location|location_string }}</a></h3>
+                {% elif data.location.country_name %}
+                  <h3 class="mb-2"><a href="{{ maps_link }}" target="_blank">{{ data.location.country_name }}</a></h3>
+                  <p class="mb-0"><label>Province:</label> {{ data.location.region_name }}</p>
                 {% else %}
-                  <h3 class="mb-0">Country: {{ data.country_code }}</h3>
+                  <h3 class="mb-2"><label>Country:</label> {{ data.country_code }}</h3>
+                  <p class="mb-0"><label>Province:</label> {{ data.province }}</p>
                 {% endif %}
-                <p class="mb-0">City: {{ data.city }}</p>
-                <p class="mb-0">Province: {{ data.province }}</p>
-                <p class="mb-0">Country: {{ data.country_code }}</p>
-                <p class="mb-0">Longitude: {{ data.location.longitude }}</p>
-                <p class="mb-0">Latitude: {{ data.location.longitude }}</p>
-                <p class="mb-0">Last updated: {{ data.last_activity }}</p>
-              {% endif %}
-              {% if data.last_updated %}
-                <p class="mb-0">Last updated: {{ data.last_updated }}</p>
+                <p class="mb-0"><label>Latitude:</label> {{ data.location.latitude }}</p>
+                <p class="mb-0"><label>Longitude:</label> {{ data.location.longitude }}</p>
+                {% if data.location.zip_code %}
+                  <p class="mb-0"><label>Postal/Zip Code:</label> {{ data.location.zip_code }}</p>
+                {% endif %}
+                <p><label>Time Zone:</label> {{ data.location.time_zone }}</p>
+                <iframe
+                  width="100%"
+                  height="300"
+                  frameborder="0" style="border:0;padding-right:10px;"
+                  src="https://www.google.com/maps/embed/v1/place?key={{ maps_api_key }}
+                    &q={{ data.location|location_string }}" allowfullscreen>
+                </iframe>
               {% endif %}
 
               {% if data.weather %}
                 {% timezone "America/Toronto" %}
-                  <p class="mb-0">Min Temp: {{ data.weather.main.temp_min }} &deg; {{ data.weather.symbol }}</p>
-                  <p class="mb-0">Max Temp: {{ data.weather.main.temp_max }} &deg; {{ data.weather.symbol }}</p>
-                  <p class="mb-0">Humidity: {{ data.weather.main.humidity }}</p>
-                  <p class="mb-0">Current Temp: {{ data.weather.main.temp }} &deg; {{ data.weather.symbol }}</p>
-                  <p class="mb-0">Sunset: {{ data.weather.sys.sunset|utc_unix_string }}</p>
-                  <p class="mb-0">Weather: {{ data.weather.weather.0.description }}</p>
-                  <p class="mb-0">Main: {{ data.weather.weather.0.main }}</p>
-                  <p class="mb-0">Icon: {{ data.weather.weather.0.icon }}</p>
-                  <img src="https://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
-                  <br>
+                  {% if data.location.city %}
+                    <h3 class="mt-5">Weather for {{data.location.city }}</h3>
+                  {% else %}
+                    <h3 class="mt-5">Weather</h3>
+                  {% endif %}
+                  <p class="mb-1">Currently {{ data.weather.main.temp }} &deg;{{ data.weather.symbol }}
+                    <span class="float-right"><img src="https://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png"></span>
+                  </p>
+                  <p class="mb-3">{{ data.weather.weather.0.description|title }}</p>
+                  <p class="mb-0"><label>Today's High:</label> {{ data.weather.main.temp_max }} &deg;{{ data.weather.symbol }}</p>
+                  <p class="mb-0"><label>Today's Low:</label> {{ data.weather.main.temp_min }} &deg;{{ data.weather.symbol }}</p>
+                  <p class="mb-0"><label>Humidity:</label> {{ data.weather.main.humidity }} %</p>
+                  <p class="mb-0"><label>Sunrise:</label> {{ data.weather.sys.sunrise|utc_unix_string }}</p>
+                  <p class="mb-0"><label>Sunset:</label> {{ data.weather.sys.sunset|utc_unix_string }}</p>
+
+                  <p class="mt-4">Full Weather Details at <a href="{{ weather_link }}" target="_blank">theweathernetwork.com</a></p>
                 {% endtimezone %}
-                {{ data.weather }}
               {% endif %}
             </div>
           </div>
         </div>
         <div class="col-5">
-          <h3>Local News</h3>
+          <h3>Latest News</h3>
           {% if data.news.articles %}
             {% timezone "America/Toronto" %}
               {% for article in data.news.articles.results %}
@@ -81,9 +92,14 @@
           {% endif %}
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
+      <div class="row mt-5">
+        <div class="col-6">
           <p class="mb-3 text-muted">Shareable link for <a href="{% url 'home' %}?ip={{ data.ip_address }}">{{ data.ip_address }}</a></p>
+          {% if data.last_updated %}
+            <p class="mb-0 text-muted">Cached data since: {{ data.last_updated|timezone:'America/Toronto' }}</p>
+          {% endif %}
+        </div>
+        <div class="col-6 text-right">
           <span class="text-muted small">
             Location information provided by <a href="http://freegeoip.net" target="_blank">freegeoip.net</a>.<br>
             Weather information provided by <a href='http://openweathermap.org' target="_blank">openweathermap.org</a>.<br>

@@ -134,6 +134,11 @@ a.unlink {
   color: #1e50a0;
 }
 
+#location-info label {
+  display: inline-block;
+  min-width: 140px;
+}
+
 /* styles for small screens */
 @media only screen and (max-width: 670px) {
  /* add if needed */
