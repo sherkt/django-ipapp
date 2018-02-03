@@ -8,6 +8,7 @@ from eventregistry import (EventRegistry, QueryArticles,
                            RequestArticlesInfo, ReturnInfo)
 
 from .models import GeoIP
+from .templatetags import location_tags
 
 TIMEOUT = 3600
 
@@ -68,6 +69,25 @@ def get_news(country, city):
     )
     response = er.execQuery(q)
     return response
+
+
+def maps_api_key():
+    return getattr(settings, 'MAPSAPI_KEY', '')
+
+
+def maps_url(location):
+    if location.get('city'):
+        s = location_tags.location_string(location)
+        return 'https://www.google.ca/maps/?q=' + s
+    elif location.get('longitude'):
+        return 'https://www.google.ca/maps/@%s,%s,6z' % (location.get('latitude'), location.get('longitude'))
+    else:
+        return 'https://www.google.ca/maps/?q=' + location.get('country_name')
+
+def weather_url(location):
+    base = 'https://www.theweathernetwork.com/'
+    url = base + '%s/weather/%s/%s' % (location.get('country_code'), location.get('region_name'), location.get('city'))
+    return url
 
 
 def get_recent(request):
