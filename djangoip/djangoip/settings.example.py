@@ -15,7 +15,7 @@ EVENTREGISTRY_KEY = 'YOUR_KEY'
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'yoursite.com']
 
 
 # Application definition
