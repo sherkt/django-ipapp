@@ -46,7 +46,7 @@
             <p class="mb-0">Weather: {{ data.weather.weather.0.description }}</p>
             <p class="mb-0">Main: {{ data.weather.weather.0.main }}</p>
             <p class="mb-0">Icon: {{ data.weather.weather.0.icon }}</p>
-            <img src="http://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
+            <img src="https://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
             <br>
             {{ data.weather }}
           {% endif %}
@@ -82,6 +82,19 @@
 {% if queries or not request.GET.ip %}
 <div class="bg-grey">
   <div class="container big-padding">
+    {% if data == None %}
+      <div class="row text-center">
+        <div class="col-12">
+          {% if not queries %}<h2 class="font-weight-light">Try out the tool!</h2>{% endif %}
+          <h5 class="font-weight-light mb-2">Enter an IP address and find out the location, weather, news, and more!</h5>
+          <div class="text-center mt-2 fa-4x text-primary" id="tool-icons" >
+            <i class="far fa-compass"></i>
+            <i class="far fa-sun"></i>
+            <i class="far fa-newspaper"></i>
+          </div>
+        </div>
+      </div>
+    {% endif %}
     {% if queries %}
       <div class="row" id="recent-queries">
         <div class="col-12 col-lg-6 offset-lg-3 text-center">
@@ -96,18 +109,6 @@
           </div>
         </div>
       </div>
-    {% else %}
-    <div class="row text-center">
-      <div class="col-12">
-        <h2 class="font-weight-light">Try out the tool!</h2>
-        <h5 class="font-weight-light">Enter an IP address and find out the location, weather, news, and more!</h5>
-        <div class="text-center mt-4 fa-5x text-primary" id="tool-icons" >
-          <i class="far fa-compass"></i>
-          <i class="far fa-sun"></i>
-          <i class="far fa-newspaper"></i>
-        </div>
-      </div>
-    </div>
     {% endif %}
   </div>
 </div>
