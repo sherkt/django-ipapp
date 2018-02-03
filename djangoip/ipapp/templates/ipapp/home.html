@@ -82,7 +82,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <p class="font-weight-bold mb-2"><a href="{{ article.url }}">{{ article.title }}</a></p>
-                    <p class="text-muted mb-3">{{ article.dateTime|date_string:"%Y-%m-%dT%H:%M:%S"|date:"M. j, Y g A T" }}</p>
+                    <p class="small mb-3">{{ article.dateTime|date_string:"%Y-%m-%dT%H:%M:%S"|date:"M. j, Y g A T" }}</p>
                     <p class="mb-3">{{ article.body|truncatechars:140 }}</p>
                     <p class="mb-0 text-secondary">Source: <a href="{{ article.url }}" class="text-secondary linkify" target="_blank">{{ article.source.uri }}</a></p>
                   </div>
