@@ -26,7 +26,7 @@ def get_location(ip):
     return call_api(url)
 
 
-def get_weather(city, country_code):
+def get_weather(latitude, longitude, country_code):
     key = getattr(settings, 'OPENWEATHER_KEY', '')
     if country_code == 'US':
         units = 'imperial'
@@ -36,7 +36,7 @@ def get_weather(city, country_code):
         symbol = 'C'
 
     url = ('http://api.openweathermap.org/data/2.5/weather?'
-           'q=' + city + ',' + country_code + '&'
+           'lat=' + str(latitude) + '&lon=' + str(longitude) + '&'
            'units=' + units + '&'
            'APPID=' + key + '')
     response = call_api(url)
@@ -59,10 +59,11 @@ def get_news(country, city):
     """Calls EventRegistry.org API"""
     key = getattr(settings, 'EVENTREGISTRY_KEY', '')
     er = EventRegistry(apiKey=key)
-    q = QueryArticles(
-        locationUri=er.getLocationUri(city),
-        keywords=country,
-    )
+    if(city):
+        location_uri = er.getLocationUri(city)
+    else:
+        location_uri = er.getLocationUri(country)
+    q = QueryArticles(locationUri=location_uri, keywords=country,)
     q.setRequestedResult(
         RequestArticlesInfo(page=1, count=5, sortBy='date',
                             sortByAsc=False, returnInfo=ReturnInfo())
@@ -150,8 +151,10 @@ def save_results(request, ip):
         geoip.zip_code = location.get('zip_code')
         geoip.save()
 
-    if geoip.country_code and geoip.city:
-        weather = get_weather(geoip.city, geoip.country_code)
+    if geoip.country_code and location.get('latitude'):
+        weather = get_weather(location.get('latitude'),
+                              location.get('longitude'),
+                              location.get('country_code'))
 
     news = get_news(location.get('country'), location.get('city'))
 

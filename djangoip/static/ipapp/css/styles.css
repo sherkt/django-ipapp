@@ -139,7 +139,16 @@ a.unlink {
   min-width: 140px;
 }
 
+@media only screen and (min-width: 800px){
+  .md-padding-50 {
+    padding-left: 50px;
+  }
+}
+
 /* styles for small screens */
-@media only screen and (max-width: 670px) {
- /* add if needed */
+@media only screen and (max-width: 575px) {
+  #api-info {
+   text-align: left !important;
+   padding-top: 20px;
+ }
 }
