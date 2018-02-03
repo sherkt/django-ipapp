@@ -1,3 +1,4 @@
+import json
 import requests
 
 from django.conf import settings
@@ -69,6 +70,18 @@ def get_news(country, city):
                             sortByAsc=False, returnInfo=ReturnInfo())
     )
     response = er.execQuery(q)
+    if not response or not response.get('articles'):
+        return None
+
+    articles = response.get('articles').get('results')
+    for key, value in enumerate(articles):
+        value['body'] = value.get('body')[:150]
+        value.pop('sim')
+        value.pop('isDuplicate')
+        articles[key] = value
+
+    response['articles'] = articles
+
     return response
 
 
