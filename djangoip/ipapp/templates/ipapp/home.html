@@ -1,6 +1,8 @@
 {% extends "ipapp/base.html" %}
 {% load date_tags location_tags tz %}
 
+{% block title %}IP Finder{% if data.ip_address %} - {{ data.ip_address }}{% endif %}{% endblock %}
+
 {% block content %}
 <div class="bg-slate border-bottom-dark" id="top">
   <div class="container medium-padding">
