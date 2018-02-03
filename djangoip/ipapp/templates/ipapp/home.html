@@ -1,5 +1,5 @@
 {% extends "ipapp/base.html" %}
-{% load date_string tz %}
+{% load date_tags location_tags tz %}
 
 {% block content %}
 <div class="bg-slate border-bottom-dark" id="top">
@@ -21,47 +21,59 @@
 {% if data %}
   <div class="bg-white">
     <div class="container big-padding">
-      <h1>Showing results for {{ data.ip_address }}</h1>
+      <h2 class="text-center mb-3">Local weather and news</h2>
+      <h2 class="text-center mb-3"><span class="text-secondary">{{ data.ip_address }}</span></h2>
       <div class="row">
-        <div class="col-4">
-          {% if data.location %}
-            <p class="mb-0">City: {{ data.city }}</p>
-            <p class="mb-0">Province: {{ data.province }}</p>
-            <p class="mb-0">Country: {{ data.country_code }}</p>
-            <p class="mb-0">Longitude: {{ data.location.longitude }}</p>
-            <p class="mb-0">Latitude: {{ data.location.longitude }}</p>
-            <p class="mb-0">Last updated: {{ data.last_activity }}</p>
-          {% endif %}
-          {% if data.last_updated %}
-            <p class="mb-0">Last updated: {{ data.last_updated }}</p>
-          {% endif %}
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              {% if data.location %}
+                {{ data.location }}
+                {% if data.location.city and data.location.country_name %}
+                  <h3 class="mb-0">{{ data.location|location_string }}</h3>
+                {% else %}
+                  <h3 class="mb-0">Country: {{ data.country_code }}</h3>
+                {% endif %}
+                <p class="mb-0">City: {{ data.city }}</p>
+                <p class="mb-0">Province: {{ data.province }}</p>
+                <p class="mb-0">Country: {{ data.country_code }}</p>
+                <p class="mb-0">Longitude: {{ data.location.longitude }}</p>
+                <p class="mb-0">Latitude: {{ data.location.longitude }}</p>
+                <p class="mb-0">Last updated: {{ data.last_activity }}</p>
+              {% endif %}
+              {% if data.last_updated %}
+                <p class="mb-0">Last updated: {{ data.last_updated }}</p>
+              {% endif %}
+
+              {% if data.weather %}
+                {% timezone "America/Toronto" %}
+                  <p class="mb-0">Min Temp: {{ data.weather.main.temp_min }} &deg; {{ data.weather.symbol }}</p>
+                  <p class="mb-0">Max Temp: {{ data.weather.main.temp_max }} &deg; {{ data.weather.symbol }}</p>
+                  <p class="mb-0">Humidity: {{ data.weather.main.humidity }}</p>
+                  <p class="mb-0">Current Temp: {{ data.weather.main.temp }} &deg; {{ data.weather.symbol }}</p>
+                  <p class="mb-0">Sunset: {{ data.weather.sys.sunset|utc_unix_string }}</p>
+                  <p class="mb-0">Weather: {{ data.weather.weather.0.description }}</p>
+                  <p class="mb-0">Main: {{ data.weather.weather.0.main }}</p>
+                  <p class="mb-0">Icon: {{ data.weather.weather.0.icon }}</p>
+                  <img src="https://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
+                  <br>
+                {% endtimezone %}
+                {{ data.weather }}
+              {% endif %}
+            </div>
+          </div>
         </div>
-        <div class="col-4">
-          {% if data.weather %}
-            <p class="mb-0">Min Temp: {{ data.weather.main.temp_min }} &deg; {{ data.weather.symbol }}</p>
-            <p class="mb-0">Max Temp: {{ data.weather.main.temp_max }} &deg; {{ data.weather.symbol }}</p>
-            <p class="mb-0">Humidity: {{ data.weather.main.humidity }}</p>
-            <p class="mb-0">Current Temp: {{ data.weather.main.temp }} &deg; {{ data.weather.symbol }}</p>
-            <p class="mb-0">Sunset: {{ data.weather.sys.sunset }}</p>
-            <p class="mb-0">Weather: {{ data.weather.weather.0.description }}</p>
-            <p class="mb-0">Main: {{ data.weather.weather.0.main }}</p>
-            <p class="mb-0">Icon: {{ data.weather.weather.0.icon }}</p>
-            <img src="https://openweathermap.org/img/w/{{ data.weather.weather.0.icon }}.png">
-            <br>
-            {{ data.weather }}
-          {% endif %}
-        </div>
-        <div class="col-4">
+        <div class="col-5">
           <h3>Local News</h3>
           {% if data.news.articles %}
             {% timezone "America/Toronto" %}
               {% for article in data.news.articles.results %}
-                <div class="card mb-4">
+                <div class="card mb-3">
                   <div class="card-body">
-                    <p>{{ article.dateTime|date_string|date:"F j, Y g A T" }}</p>
-                    <p class="font-weight-bold">{{ article.title }}</p>
-                    <p>{{ article.source.url }}</p>
-                    <p>{{ article.url }}</p>
+                    <p class="font-weight-bold mb-2"><a href="{{ article.url }}">{{ article.title }}</a></p>
+                    <p class="text-muted mb-3">{{ article.dateTime|date_string:"%Y-%m-%dT%H:%M:%S"|date:"M. j, Y g A T" }}</p>
+                    <p class="mb-3">{{ article.body|truncatechars:140 }}</p>
+                    <p class="mb-0 text-secondary">Source: <a href="{{ article.url }}" class="text-secondary linkify" target="_blank">{{ article.source.uri }}</a></p>
                   </div>
                 </div>
               {% endfor %}
