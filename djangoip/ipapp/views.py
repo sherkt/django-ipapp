@@ -30,7 +30,7 @@ def home(request):
                 validate_ipv46_address(ip_address)
             except ValidationError:
                 return redirect('home')
-            geoip = GeoIP.objects.filter(ip_address=ip_address).first()
+            geoip = GeoIP.objects.filter(ip_address__iexact=ip_address).first()
             if geoip:
                 data = get_or_set_cache(request, ip_address)
         else:

@@ -110,16 +110,12 @@ def update_session(request, ip_address, location):
 
 
 def save_results(request, ip):
-    geoip = GeoIP.objects.filter(
-        ip_address__iexact=ip
-    ).first()
-
-    location = weather = news = None
+    geoip = GeoIP.objects.filter(ip_address__iexact=ip).first()
 
     if not geoip:
-        geoip = GeoIP.objects.create(
-            ip_address=ip.lower(),
-        )
+        geoip = GeoIP.objects.create(ip_address=ip)
+
+    weather = news = None
 
     location = get_location(ip)
     if location:
