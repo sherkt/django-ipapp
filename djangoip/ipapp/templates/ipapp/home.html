@@ -131,7 +131,7 @@
         <div class="col-12 col-lg-6 offset-lg-3 text-center">
           <h3>Recent Queries</h3>
           <div class="list-group mt-4 text-left">
-            {% for value in queries|dictsortreversed:'date' %}
+            {% for value in queries|dictsortreversed:'date'|slice:"10" %}
               <a href="/?ip={{ value.ip_address }}" class="list-group-item list-group-item-action">
                 <span class="font-weight-bold">{{ value.ip_address }}</span>
                 <span class="float-right font-weight-light text-muted">{{ value.city|default:value.country_code }}</span>
