@@ -75,18 +75,23 @@ def maps_api_key():
     return getattr(settings, 'MAPSAPI_KEY', '')
 
 
-def maps_url(location):
-    if location.get('city'):
-        s = location_tags.location_string(location)
-        return 'https://www.google.ca/maps/?q=' + s
-    elif location.get('longitude'):
-        return 'https://www.google.ca/maps/@%s,%s,6z' % (location.get('latitude'), location.get('longitude'))
+def maps_url(data):
+    base = 'https://www.google.ca/maps/'
+    if data.get('city'):
+        s = location_tags.location_string(data)
+        return base + '?q=' + s
+    elif data.get('longitude'):
+        return base + '@%s,%s,6z' % (data.get('latitude'),
+                                     data.get('longitude'))
     else:
-        return 'https://www.google.ca/maps/?q=' + location.get('country_name')
+        return base + '?q=' + data.get('country_name')
 
-def weather_url(location):
+
+def weather_url(data):
     base = 'https://www.theweathernetwork.com/'
-    url = base + '%s/weather/%s/%s' % (location.get('country_code'), location.get('region_name'), location.get('city'))
+    url = base + '%s/weather/%s/%s' % (data.get('country_code'),
+                                       data.get('region_name').replace(' ', '-'),
+                                       data.get('city').replace(' ', '-'))
     return url
 
 

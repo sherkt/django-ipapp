@@ -14,6 +14,7 @@ def date_string(value, arg=None):
             pass
     return value
 
+
 def utc_unix_string(value):
     utc = pytz.utc
     try:

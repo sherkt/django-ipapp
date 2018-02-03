@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect, reverse
 
 from .forms import IpForm
 from .models import GeoIP
-from .utils import get_or_set_cache, get_recent, maps_api_key, maps_url, weather_url
+from .utils import (get_or_set_cache, get_recent,
+                    maps_api_key, maps_url, weather_url)
 
 
 def home(request):
