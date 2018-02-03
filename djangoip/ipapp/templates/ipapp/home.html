@@ -1,5 +1,5 @@
 {% extends "ipapp/base.html" %}
-
+{% load date_string tz %}
 
 {% block content %}
 <div class="bg-slate border-bottom-dark" id="top">
@@ -52,17 +52,20 @@
           {% endif %}
         </div>
         <div class="col-4">
+          <h3>Local News</h3>
           {% if data.news.articles %}
-            {% for article in data.news.articles.results %}
-              <div class="card mb-4">
-                <div class="card-body">
-                  <p>{{ article.dateTime }}</p>
-                  <p>{{ article.title }}</p>
-                  <p>{{ article.source.url }}</p>
-                  <p>{{ article.url }}</p>
+            {% timezone "America/Toronto" %}
+              {% for article in data.news.articles.results %}
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <p>{{ article.dateTime|date_string|date:"F j, Y g A T" }}</p>
+                    <p class="font-weight-bold">{{ article.title }}</p>
+                    <p>{{ article.source.url }}</p>
+                    <p>{{ article.url }}</p>
+                  </div>
                 </div>
-              </div>
-            {% endfor %}
+              {% endfor %}
+            {% endtimezone %}
           {% endif %}
         </div>
       </div>
