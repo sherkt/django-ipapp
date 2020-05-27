@@ -2,5 +2,5 @@ django==2.2.12
 requests==2.20.0
 django-redis==4.8.0
 eventregistry==6.7.0
-gunicorn==19.3.0
+gunicorn==19.5.0
 psycopg2==2.8.5
