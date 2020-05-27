@@ -23,7 +23,7 @@ def call_api(url, method='GET'):
 
 
 def get_location(ip):
-    url = 'http://freegeoip.net/json/' + ip
+    url = 'http://freegeoip.live/json/' + ip
     return call_api(url)
 
 
